@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 public class ToDoController {
@@ -18,14 +20,24 @@ public class ToDoController {
     @Autowired
     TaskService service;
 
-    @GetMapping ("/saludo")
+    @GetMapping ("/")
     public String saludar(Model model) {
-        model.addAttribute("mensaje", "Holisss");
-        return "saludo";
+        List<TaskEntity> tareas = service.findAll();
+        model.addAttribute("tareas", tareas);
+        return "index";
+    }
+    @GetMapping ("/agregartarea")
+    public String tareaNueva(Model model){
+        model.addAttribute("TaskEntity",new TaskEntity());
+        return "formTareaNueva";
     }
     @PostMapping ("/agregartarea")
-    public String tareaNueva(@Validated TaskEntity tarea){
+    public String tareaNueva(@Validated TaskEntity tarea,Model model){
+        model.addAttribute("TaskEntity",tarea);
+        System.out.println(tarea.getNombreTarea());
+        System.out.println(tarea.getDescripcionTarea());
+
         service.addTask(tarea);
-        return "formTareaNueva";
+        return "redirect:/";
     }
 }

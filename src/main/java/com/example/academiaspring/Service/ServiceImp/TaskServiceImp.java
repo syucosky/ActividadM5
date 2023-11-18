@@ -4,9 +4,10 @@ import com.example.academiaspring.Entity.TaskEntity;
 import com.example.academiaspring.Repository.TaskRepository;
 import com.example.academiaspring.Service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TaskServiceImp implements TaskService {
 
     @Autowired
@@ -14,6 +15,7 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public void addTask(TaskEntity task) {
+
         repository.save(task);
     }
 
@@ -24,7 +26,7 @@ public class TaskServiceImp implements TaskService {
 
     @Override
     public List<TaskEntity> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
