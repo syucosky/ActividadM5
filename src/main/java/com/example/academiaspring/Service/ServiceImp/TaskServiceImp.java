@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TaskServiceImp implements TaskService {
 
@@ -20,8 +22,8 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public TaskEntity findById(int id) {
-        return null;
+    public Optional<TaskEntity> findById(int id) {
+        return repository.findById(id);
     }
 
     @Override
@@ -30,12 +32,7 @@ public class TaskServiceImp implements TaskService {
     }
 
     @Override
-    public void editTask(TaskEntity task) {
-
-    }
-
-    @Override
     public void deleteById(int id) {
-
+        repository.deleteById(id);
     }
 }

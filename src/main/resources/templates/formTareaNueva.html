@@ -15,10 +15,11 @@
       <form th:action="@{/agregartarea}" th:object="${TaskEntity}" method="POST">
         <div class="card">
           <div class="card-header">
-            <h3>Agregar nueva tarea</h3>
+            <h3>Agregar Nueva Tarea</h3>
           </div>
           <div class="card-body">
             <div class="form-group">
+              <input th:field="*{id}" type="hidden">
               <label>Nombre:</label>
               <input th:field="*{nombreTarea}" type="text" class="form-control"/>
             </div>
@@ -36,7 +37,18 @@
     </div>
   </div>
 </div>
-
+<div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+  <div class="card-body">
+    <h5 class="card-title">Exito</h5>
+    <p class="card-text" th:text="${exito}"></p>
+  </div>
+</div>
+<div th:if="${error}!=null" class="card text-white bg-danger mb-3 mensajeError" >
+  <div class="card-body">
+    <h5 class="card-title">Error</h5>
+    <p class="card-text" th:text="${error}"></p>
+  </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

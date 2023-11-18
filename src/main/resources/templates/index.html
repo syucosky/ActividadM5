@@ -26,8 +26,8 @@
                     <span th:text="${tarea.descripcionTarea}"></span>
                 </div>
                 <div class="m-2">
-                <a th:href="@{/editar/__${tarea.nombreTarea}__}" class="btn btn-info ">Editar</a>
-                <a th:href="@{/eliminar/__${tarea.nombreTarea}__}" class="btn btn-danger ">Eliminar</a>
+                <a th:href="@{/editar/__${tarea.id}__}" class="btn btn-info ">Editar</a>
+                <a th:href="@{/eliminar/__${tarea.id}__}" class="btn btn-danger ">Eliminar</a>
                 </div>
             </div>
         </div>

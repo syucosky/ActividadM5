@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.*;
+import org.springframework.ui.ModelMap;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/")
@@ -21,7 +20,7 @@ public class ToDoController {
     TaskService service;
 
     @GetMapping ("/")
-    public String saludar(Model model) {
+    public String listarTareas(Model model) {
         List<TaskEntity> tareas = service.findAll();
         model.addAttribute("tareas", tareas);
         return "index";
@@ -32,12 +31,20 @@ public class ToDoController {
         return "formTareaNueva";
     }
     @PostMapping ("/agregartarea")
-    public String tareaNueva(@Validated TaskEntity tarea,Model model){
-        model.addAttribute("TaskEntity",tarea);
-        System.out.println(tarea.getNombreTarea());
-        System.out.println(tarea.getDescripcionTarea());
+    public String guardarTarea(@Validated TaskEntity tarea){
+         service.addTask(tarea);
+        return "redirect:/";
+    }
 
-        service.addTask(tarea);
+    @GetMapping ("/editar/{id}")
+    public String editarTarea(@PathVariable int id, Model model){
+          TaskEntity tarea = service.findById(id).get();
+          model.addAttribute("TaskEntity",tarea);
+        return "formTareaNueva";
+    }
+    @GetMapping("/eliminar/{id}")
+    public String eliminarTarea(@PathVariable int id){
+        service.deleteById(id);
         return "redirect:/";
     }
 }
